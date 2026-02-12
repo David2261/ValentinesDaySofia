@@ -50,8 +50,43 @@ var HEART_ART = [
   "                                                .==..                                               ",
   "                                                ...."
 ].join("\n");
-document.getElementById("ascii-art").textContent = HEART_ART;
-// ── Floating Hearts ──
+const pre = document.getElementById("ascii-art");
+
+const base = HEART_ART.split("\n");
+
+// символы для перелива
+const palette = ".,-~:;=!*#$@";
+
+let phase = 0;
+
+setInterval(() => {
+  phase += 0.15;
+
+  const animated = base.map((line, y) => {
+    return [...line].map((char, x) => {
+
+      // пробелы не трогаем
+      if (char === " ") return " ";
+
+      // создаём волну по координатам
+      const wave =
+        Math.sin(x * 0.15 + phase) +
+        Math.cos(y * 0.25 + phase);
+
+      // переводим в индекс палитры
+      const index = Math.floor(
+        ((wave + 2) / 4) * (palette.length - 1)
+      );
+
+      return palette[index];
+    }).join("");
+  }).join("\n");
+
+  pre.textContent = animated;
+
+}, 60);
+
+// ── Маленькие сердечки ──
 (function () {
   var container = document.getElementById("hearts-container");
   var SVG_NS = "http://www.w3.org/2000/svg";
@@ -80,7 +115,7 @@ document.getElementById("ascii-art").textContent = HEART_ART;
     container.appendChild(wrapper);
   }
 })();
-// ── Greeting rotation ──
+// ── Вращение надписи ──
 (function () {
   var messages = [
     "С Днём Святого Валентина, София ❤",
