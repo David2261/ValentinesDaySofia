@@ -1,0 +1,91 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #fec;
+  font-family: 'Playfair Display', serif;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ── Floating hearts ── */
+.floating-heart {
+  position: fixed;
+  bottom: -5vh;
+  pointer-events: none;
+  z-index: 0;
+  animation: float-up linear infinite;
+}
+@keyframes float-up {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .8; }
+  100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+}
+/* ── Center layout ── */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+/* ── ASCII heart ── */
+.ascii-heart {
+  user-select: none;
+  white-space: pre;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(3px, 0.55vw, 7px);
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    270deg,
+    hsl(350, 80%, 50%),
+    hsl(0, 85%, 55%),
+    hsl(330, 75%, 55%),
+    hsl(10, 80%, 55%),
+    hsl(350, 80%, 50%)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite, pulse-heart 3s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+/* ── Greeting text ── */
+.greeting-text {
+  margin-top: 1rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  font-weight: 700;
+  text-align: center;
+  transition: opacity 0.5s ease;
+  background: linear-gradient(
+    270deg,
+    hsl(350, 80%, 55%),
+    hsl(320, 70%, 60%),
+    hsl(10, 90%, 60%),
+    hsl(340, 80%, 50%),
+    hsl(350, 80%, 55%)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
